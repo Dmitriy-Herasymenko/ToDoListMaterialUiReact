@@ -1,17 +1,40 @@
-import Todos from "./Todos";
 import React from "react";
 
-export default function TodoItem() {
+const style = {
+    li: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        color: '#fff',
+        padding: '15px'
+    },
+    btn: {
+        backgroundColor: '#3c424a',
+        border: 'none',
+        outline: 'none',
+        cursor: 'pointer',
+        color: 'red'
+    },
+    underline: {
+        textDecoration: 'line-through'
+    },
+
+    noneUnderline: {
+        textDecoration: 'none'
+    }
+}
+
+
+
+export default function TodoItem({todo, onChange}) {
     return (
-        Todos.map((todo, index) => {
+        todo.map(todo => {
+            const underline = todo.completed ? style.underline : style.noneUnderline;
             return (
-                <li key={todo.id}>
-                    <input type="checkbox"/>
-                    <strong>{index + 1}</strong>
-                    {todo.title}
-                    <button>&times;</button>
+                <li key={todo.id} style={style.li}>
+                    <input type="checkbox" onChange={ ()=> onChange(todo.id)}  />
+                    <label style={underline}>{todo.title}</label>
+                    <button style={style.btn}>&times;</button>
                 </li>
-            )
-        })
-    )
+        )
+        }))
 };
